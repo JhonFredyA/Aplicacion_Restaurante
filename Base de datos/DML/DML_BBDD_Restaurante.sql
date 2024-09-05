@@ -4,18 +4,53 @@ use BBDD_Restaurante;
 DELETE from producto;
 DELETE from orden;
 
+DELETE FROM Mesero;
+DELETE FROM Tipo_Cliente;
+DELETE FROM Tipo_Producto;
+DELETE FROM Categoria_Producto;
+DELETE FROM Pedido; 
 -- Reinicia el ID autoincrementable en 0 para que no hayan errores con el número de ID
 alter table producto AUTO_INCREMENT = 0;
 alter table orden AUTO_INCREMENT = 0;
 
+ALTER Table Mesero AUTO_INCREMENT = 0;
+ALTER Table Tipo_Cliente AUTO_INCREMENT = 0;
+ALTER Table Tipo_Producto AUTO_INCREMENT = 0;
+ALTER Table Categoria_Producto AUTO_INCREMENT = 0;
+ALTER Table Pedido AUTO_INCREMENT = 0;
+
 -- Carga masiva de tabla Mesero
-
+LOAD DATA INFILE 'Carga Masiva/Mesero.csv'
+REPLACE INTO TABLE Mesero
+FIELDS TERMINATED BY ';' 
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES
+(Mes_Nombre);
 -- Carga masiva de tabla Tipo_Cliente
-
+LOAD DATA INFILE 'Carga Masiva/Tipo_Cliente.csv'
+REPLACE INTO TABLE Tipo_Cliente
+FIELDS TERMINATED BY ';' 
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES
+(TiC_Tipo);
 -- Carga masiva de tabla Tipo_Producto
-
+LOAD DATA INFILE 'Carga Masiva/Tipo_Producto.csv'
+REPLACE INTO TABLE Tipo_Producto
+FIELDS TERMINATED BY ';' 
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES
+(TiP_Nombre);
 -- Carga masiva de tabla Categoria_Producto
-
+LOAD DATA INFILE 'Carga Masiva/Categoria_Producto.csv'
+REPLACE INTO TABLE Categoria_Producto
+FIELDS TERMINATED BY ';' 
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES
+(CaP_Nombre);
 -- Carga masiva de tabla Producto
 LOAD DATA INFILE 'Carga Masiva/Producto.csv'
 REPLACE INTO TABLE producto
@@ -33,3 +68,12 @@ ENCLOSED BY '"'
 LINES TERMINATED BY '\n'
 IGNORE 1 LINES
 (Ord_Fecha, Ord_Mesa, Ord_Propina, Mes_ID, TiC_ID);
+
+-- Carga masiva de tabla Pedido
+LOAD DATA INFILE 'Carga Masiva/Pedido.csv'
+REPLACE INTO TABLE Pedido
+FIELDS TERMINATED BY ';' 
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES
+(Ord_ID,Prod_ID);
