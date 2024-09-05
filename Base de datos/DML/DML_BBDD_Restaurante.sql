@@ -1,23 +1,26 @@
+-- Intrucciones de uso:
+-- 1. Haber creado base de datos previamente
+-- 2. Copiar y pegar carpeta de Carga Masiva ubicada en el repositorio en la siguiente ruta: C:\xampp\mysql\data
+
 use BBDD_Restaurante;
 
 -- Script para borrar datos de las tablas en caso de que la tabla ya cuente con registros
-DELETE from producto;
-DELETE from orden;
-
+DELETE FROM producto;
+DELETE FROM orden;
 DELETE FROM Mesero;
 DELETE FROM Tipo_Cliente;
 DELETE FROM Tipo_Producto;
 DELETE FROM Categoria_Producto;
 DELETE FROM Pedido; 
--- Reinicia el ID autoincrementable en 0 para que no hayan errores con el número de ID
-alter table producto AUTO_INCREMENT = 0;
-alter table orden AUTO_INCREMENT = 0;
 
-ALTER Table Mesero AUTO_INCREMENT = 0;
-ALTER Table Tipo_Cliente AUTO_INCREMENT = 0;
-ALTER Table Tipo_Producto AUTO_INCREMENT = 0;
-ALTER Table Categoria_Producto AUTO_INCREMENT = 0;
-ALTER Table Pedido AUTO_INCREMENT = 0;
+-- Reinicia el ID autoincrementable en 0 para que no hayan errores con el número de ID
+ALTER TABLE producto AUTO_INCREMENT = 0;
+ALTER TABLE orden AUTO_INCREMENT = 0;
+ALTER TABLE Mesero AUTO_INCREMENT = 0;
+ALTER TABLE Tipo_Cliente AUTO_INCREMENT = 0;
+ALTER TABLE Tipo_Producto AUTO_INCREMENT = 0;
+ALTER TABLE Categoria_Producto AUTO_INCREMENT = 0;
+ALTER TABLE Pedido AUTO_INCREMENT = 0;
 
 -- Carga masiva de tabla Mesero
 LOAD DATA INFILE 'Carga Masiva/Mesero.csv'
@@ -59,7 +62,6 @@ ENCLOSED BY '"'
 LINES TERMINATED BY '\n'
 IGNORE 1 LINES
 (Prod_Nombre, Prod_Costo, Prod_Precio, CaP_ID, TiP_ID);
-
 -- Carga masiva de tabla Orden
 LOAD DATA INFILE 'Carga Masiva/Orden.csv'
 REPLACE INTO TABLE orden
@@ -68,7 +70,6 @@ ENCLOSED BY '"'
 LINES TERMINATED BY '\n'
 IGNORE 1 LINES
 (Ord_Fecha, Ord_Mesa, Ord_Propina, Mes_ID, TiC_ID);
-
 -- Carga masiva de tabla Pedido
 LOAD DATA INFILE 'Carga Masiva/Pedido.csv'
 REPLACE INTO TABLE Pedido
