@@ -131,4 +131,16 @@ Tipo_Producto ON Producto.TiP_ID = Tipo_Producto.TiP_ID
 WHERE Producto.Prod_ID =69;
 
 
+-- fECHA ORDEN Y NOMBRE PRODUCTI
 
+SELECT 
+Pedido.Ped_ID,
+Orden.Ord_Fecha,
+Producto.Prod_Nombre
+FROM Pedido
+INNER JOIN
+Orden ON Pedido.Ord_ID = Orden.Ord_ID
+INNER JOIN 
+Producto ON 
+Pedido.Prod_ID = Producto.Prod_ID
+WHERE Pedido.Ped_ID =15;
