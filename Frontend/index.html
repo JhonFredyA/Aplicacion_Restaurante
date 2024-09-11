@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Datos</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        label { display: block; margin: 10px 0 5px; }
+        select { width: 200px; }
+    </style>
+</head>
+<body>
+    <h1>Formulario de Datos</h1>
+    <form id="data-form">
+        <label for="mesero">Mesero:</label>
+        <select id="mesero" name="mesero"></select>
+
+        <label for="producto">Producto:</label>
+        <select id="producto" name="producto"></select>
+
+        <label for="tipo-cliente">Tipo de Cliente:</label>
+        <select id="tipo-cliente" name="tipo-cliente"></select>
+    </form>
+
+    <script>
+        // Función para llenar los selects con los datos
+        const populateSelect = (id, data) => {
+            const select = document.getElementById(id);
+            select.innerHTML = '<option value="">Seleccione...</option>'; 
+            data.forEach(item => {
+                const option = document.createElement('option');
+                option.value = item.id; 
+                option.textContent = item.name; 
+                select.appendChild(option);
+            });
+        };
+
+        // Función para obtener los datos del servidor y llenar los selects
+        const loadData = async () => {
+            try {
+                const response = await fetch('/data/getData');
+                const data = await response.json();
+
+                populateSelect('mesero', data.meseros.map(m => ({ id: m.Mes_ID, name: m.Mes_Nombre })));
+                populateSelect('producto', data.productos.map(p => ({ id: p.Prod_ID, name: p.Prod_Nombre })));
+                populateSelect('tipo-cliente', data.tipoCliente.map(t => ({ id: t.TiC_ID, name: t.TiC_Tipo })));
+            } catch (error) {
+                console.error('Error al cargar los datos:', error);
+            }
+        };
+
+        // Llamar a la función para cargar los datos cuando la página se carga
+        document.addEventListener('DOMContentLoaded', loadData);
+    </script>
+</body>
+</html>
