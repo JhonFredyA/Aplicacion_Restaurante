@@ -13,31 +13,18 @@
         <form action="" method="get">
             <label for="Mesero">Mesero</label>
             <br>
-            <select class="barra" name="Mesero" id="Mesero">
-                <option value="1">Alejandro</option>
-                <option value="2">Joel</option>
-                <option value="3">Omar</option>
-                <option value="4">Ernesto</option>
-                <option value="5">Valentina</option>
-                <option value="6">Mariana</option>
-                <option value="7">Rodolfo</option>
-                <option value="8">Saul</option>
-                <option value="9">Mauricio</option>
-            </select>
+            <select class="barra" name="Mesero" id="Mesero"></select>
             <br>
             <label for="Mesa">Número de Mesa</label>
             <br>
             <input class="barra" type="number" name="Mesa" id="Mesa">
             <br>
             <label>Tipo Cliente</label>
-            <br>
-            <input type="radio" value="1" name="tipoCliente" id="clienteNuevo">Cliente Nuevo
-            <input type="radio" value="2" name="tipoCliente" id="clienteAntiguo">Cliente Antiguo
-            <br>
+            <div id="tipo-cliente-container" class="tipo-cliente-container"></div>
             <div id="contenedorProductos">
                 <div class="productoSelect">
                     <label>Producto</label>
-                    <select class="barra selectProducto">
+                    <select class="barra selectProducto" id="Producto">
                         <option value="">Seleccione un producto</option>
                     </select>
                     <input class="barra cantidadProducto" type="number" placeholder="Cantidad" min="1" value="1">
@@ -51,7 +38,7 @@
             <input id="enviarOrden" type="submit" value="Enviar Orden">
         </form>
     </div>
-    <script src="script.js"></script>
+    <script src="./js/data.js"></script>
     <script>
         // Función para agregar un nuevo elemento de selección de producto
         function agregarProducto() {
@@ -91,7 +78,7 @@
             // Crear el botón de eliminar (con ícono)
             const botonEliminar = document.createElement('img');
             botonEliminar.classList.add('eliminar');
-            botonEliminar.src = 'icono para eliminar.png'; // Cambia esta URL por la ubicación de tu ícono
+            botonEliminar.src = './assets/icons/icono para eliminar.png'; // Cambia esta URL por la ubicación de tu ícono
             botonEliminar.alt = 'Eliminar Producto';
             botonEliminar.onclick = () => eliminarProducto(botonEliminar);
             
