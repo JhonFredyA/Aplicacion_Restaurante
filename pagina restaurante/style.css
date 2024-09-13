@@ -1,0 +1,116 @@
+/* Estilos generales para el formulario */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+}
+
+#formulario {
+    max-width: 700px;
+    margin: auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+label {
+    font-weight: bold;
+    margin-bottom: 10px;
+    display: block;
+    margin-top: 24px;
+}
+
+input[type="number"], select, .barra {
+    width: calc(100% - 22px); /* Ajusta el ancho para tener en cuenta el padding */
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type="radio"] {
+    margin-right: 15px;
+}
+
+input[type="button"], input[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+input[type="button"]:hover, input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+.productoSelect {
+    display: flex;
+    align-items: center;
+    margin-top: 25px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 10px;
+    background: #fafafa;
+    box-sizing: border-box; /* Asegura que el padding y el borde no afecten el ancho total */
+}
+
+.productoSelect label {
+    flex: 0 0 auto; /* No se expande ni se contrae, mantiene el tamaño del contenido */
+    margin-right: 10px;
+}
+
+.productoSelect select {
+    flex: 2 1 auto; /* Ocupa más espacio disponible */
+    margin-right: 10px;
+}
+
+.cantidadProducto {
+    flex: 1 1 auto; /* Ocupa el espacio disponible de manera flexible */
+    margin-right: 10px;
+}
+
+.precioProducto {
+    flex: 1 1 auto; /* Ocupa el espacio disponible de manera flexible */
+    margin-right: 10px;
+}
+
+.productoSelect img.eliminar {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+input.barra {
+    margin-bottom: 0; /* Elimina el margen inferior extra en los campos de entrada */
+}
+
+input[type="button"].agregar {
+    background-color: #28a745;
+}
+
+input[type="button"].agregar:hover {
+    background-color: #218838;
+}
+
+input[type="submit"]#enviarOrden {
+    background-color: #007bff;
+}
+
+input[type="submit"]#enviarOrden:hover {
+    background-color: #0056b3;
+}

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Pedido</title>
+    <link rel="stylesheet" href="style.css">
+   
+</head>
+<body>
+    <div id="formulario">
+        <h1>Registro de Pedido</h1> 
+        <form action="" method="get">
+            <label for="Mesero">Mesero</label>
+            <br>
+            <select class="barra" name="Mesero" id="Mesero">
+                <option value="1">Alejandro</option>
+                <option value="2">Joel</option>
+                <option value="3">Omar</option>
+                <option value="4">Ernesto</option>
+                <option value="5">Valentina</option>
+                <option value="6">Mariana</option>
+                <option value="7">Rodolfo</option>
+                <option value="8">Saul</option>
+                <option value="9">Mauricio</option>
+            </select>
+            <br>
+            <label for="Mesa">Número de Mesa</label>
+            <br>
+            <input class="barra" type="number" name="Mesa" id="Mesa">
+            <br>
+            <label>Tipo Cliente</label>
+            <br>
+            <input type="radio" value="1" name="tipoCliente" id="clienteNuevo">Cliente Nuevo
+            <input type="radio" value="2" name="tipoCliente" id="clienteAntiguo">Cliente Antiguo
+            <br>
+            <div id="contenedorProductos">
+                <div class="productoSelect">
+                    <label>Producto</label>
+                    <select class="barra selectProducto">
+                        <option value="">Seleccione un producto</option>
+                    </select>
+                    <input class="barra cantidadProducto" type="number" placeholder="Cantidad" min="1" value="1">
+                    <input class="barra precioProducto" type="number" placeholder="Precio" step="0.01">
+                    <img class="eliminar" src="icono para eliminar.png" alt="Eliminar Producto" onclick="eliminarProducto(this)">
+                </div>
+            </div>
+            <br>
+            <input class="barra" type="button" value="Agregar Producto" onclick="agregarProducto()">
+            <br>
+            <input id="enviarOrden" type="submit" value="Enviar Orden">
+        </form>
+    </div>
+    <script src="script.js"></script>
+    <script>
+        // Función para agregar un nuevo elemento de selección de producto
+        function agregarProducto() {
+            const contenedorProductos = document.getElementById('contenedorProductos');
+            
+            // Crear un nuevo div para el elemento de selección
+            const nuevoProductoDiv = document.createElement('div');
+            nuevoProductoDiv.classList.add('productoSelect');
+            
+            // Crear la etiqueta
+            const etiqueta = document.createElement('label');
+            etiqueta.textContent = 'Producto';
+            
+            // Crear el nuevo elemento de selección
+            const nuevaSeleccion = document.createElement('select');
+            nuevaSeleccion.classList.add('barra', 'selectProducto');
+            const opcionPorDefecto = document.createElement('option');
+            opcionPorDefecto.textContent = 'Seleccione un producto';
+            opcionPorDefecto.value = '';
+            nuevaSeleccion.appendChild(opcionPorDefecto);
+            
+            // Crear el campo de cantidad
+            const campoCantidad = document.createElement('input');
+            campoCantidad.classList.add('barra', 'cantidadProducto');
+            campoCantidad.type = 'number';
+            campoCantidad.placeholder = 'Cantidad';
+            campoCantidad.min = '1';
+            campoCantidad.value = '1';
+            
+            // Crear el campo de precio
+            const campoPrecio = document.createElement('input');
+            campoPrecio.classList.add('barra', 'precioProducto');
+            campoPrecio.type = 'number';
+            campoPrecio.placeholder = 'Precio';
+            campoPrecio.step = '0.01';
+            
+            // Crear el botón de eliminar (con ícono)
+            const botonEliminar = document.createElement('img');
+            botonEliminar.classList.add('eliminar');
+            botonEliminar.src = 'icono para eliminar.png'; // Cambia esta URL por la ubicación de tu ícono
+            botonEliminar.alt = 'Eliminar Producto';
+            botonEliminar.onclick = () => eliminarProducto(botonEliminar);
+            
+            // Agregar la etiqueta, selección, campos y botón al nuevo div
+            nuevoProductoDiv.appendChild(etiqueta);
+            nuevoProductoDiv.appendChild(nuevaSeleccion);
+            nuevoProductoDiv.appendChild(campoCantidad);
+            nuevoProductoDiv.appendChild(campoPrecio);
+            nuevoProductoDiv.appendChild(botonEliminar);
+            
+            // Agregar el nuevo div al contenedor
+            contenedorProductos.appendChild(nuevoProductoDiv);
+        }
+        
+        // Función para eliminar un elemento de selección de producto específico
+        function eliminarProducto(boton) {
+            const contenedorProductos = document.getElementById('contenedorProductos');
+            const elementosSeleccion = contenedorProductos.querySelectorAll('.productoSelect');
+            
+            if (elementosSeleccion.length > 1) {
+                contenedorProductos.removeChild(boton.parentElement);
+            } else {
+                alert('Debe haber al menos un producto.');
+            }
+        }
+        
+        // Función para modificar las opciones de todos los elementos de selección
+        function modificarOpciones() {
+            const nuevoNombreProducto = prompt('Ingrese el nombre del producto para agregar a todas las listas:');
+            
+            if (nuevoNombreProducto) {
+                const selectProductos = document.querySelectorAll('.selectProducto');
+                
+                selectProductos.forEach(select => {
+                    const opcion = document.createElement('option');
+                    opcion.value = nuevoNombreProducto.toLowerCase().replace(/\s+/g, '_');
+                    opcion.textContent = nuevoNombreProducto;
+                    select.appendChild(opcion);
+                });
+            }
+        }
+        
+        // Ejemplo de llamada para modificar opciones (puede ser activado por otro botón o acción)
+        document.getElementById('botonModificarOpciones').addEventListener('click', modificarOpciones);
+    </script>
+</body>
+</html>
