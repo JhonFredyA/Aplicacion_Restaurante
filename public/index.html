@@ -5,124 +5,93 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro de Pedido</title>
     <link rel="stylesheet" href="./css/style.css">
-   
 </head>
 <body>
-    <div id="formulario">
-        <h1>Registro de Pedido</h1> 
-        <form action="" method="get">
-            <label for="Mesero">Mesero</label>
-            <br>
-            <select class="barra" name="Mesero" id="Mesero"></select>
-            <br>
-            <label for="Mesa">Número de Mesa</label>
-            <br>
-            <input class="barra" type="number" name="Mesa" id="Mesa">
-            <br>
-            <label>Tipo Cliente</label>
-            <div id="tipo-cliente-container" class="tipo-cliente-container"></div>
-            <div id="contenedorProductos">
-                <div class="productoSelect">
-                    <label>Producto</label>
-                    <select class="barra selectProducto" id="Producto">
-                        <option value="">Seleccione un producto</option>
-                    </select>
-                    <input class="barra cantidadProducto" type="number" placeholder="Cantidad" min="1" value="1">
-                    <input class="barra precioProducto" type="number" placeholder="Precio" step="0.01">
-                    <img class="eliminar" src="./assets/icons/icono para eliminar.png" alt="Eliminar Producto" onclick="eliminarProducto(this)">
+
+    <div class="contenedor_principal">
+        <!-- CONTENEDOR PARA REGISTRO -->
+        <div id="formulario">
+            <h1>Registro de Pedido</h1>
+            <form action="" method="get">
+                <label for="Mesero">Mesero</label>
+                <select class="barra separar" name="Mesero" id="Mesero"></select>
+
+                <label for="Numero_de_mesa">Número de Mesa</label>
+                <select class="barra separar" name="Numero_de_Mesa" id="Numero_de_mesa" >
+                   <option value="1">Mesa 1</option>
+                   <option value="2">Mesa 2</option>
+                   <option value="3">Mesa 3</option>
+                   <option value="4">Mesa 4</option>
+                   <option value="5">Mesa 5</option>
+                   <option value="6">Mesa 6</option>
+                </select>
+
+                <label>Tipo Cliente</label>
+                <select class="barra separar tipo_cliente_select" name="Tipo_Cliente" id="Tipo_Cliente" ></select>
+
+                <div class="botones">
+                    <input class="barra agregar" type="button" value="Agregar Producto" onclick="agregarProducto()">
+                    <input id="enviarOrden" type="submit" value="Enviar Orden">
                 </div>
+            </form>
+        </div>
+
+        <!-- Contenedor para productos -->
+        <div id="productosContainer">
+            <div class="productoSelect">
+                <label>Producto</label>
+                <select class="barra selectProducto">
+                    <option value="">Seleccione un producto</option>
+                </select>
+                <input class="barra cantidadProducto" type="number" placeholder="Cantidad" min="1" value="1">
+                <img class="eliminar" src="./assets/icons/icono para eliminar.png" alt="Eliminar Producto" onclick="eliminarProducto(this)">
             </div>
-            <br>
-            <input class="barra" type="button" value="Agregar Producto" onclick="agregarProducto()">
-            <br>
-            <input id="enviarOrden" type="submit" value="Enviar Orden">
-        </form>
+        </div>
     </div>
-    <script src="./js/data.js"></script>
+
     <script>
-        // Función para agregar un nuevo elemento de selección de producto
         function agregarProducto() {
-            const contenedorProductos = document.getElementById('contenedorProductos');
+            // Obtener el contenedor de productos
+            const productosContainer = document.getElementById('productosContainer');
             
-            // Crear un nuevo div para el elemento de selección
-            const nuevoProductoDiv = document.createElement('div');
-            nuevoProductoDiv.classList.add('productoSelect');
-            
-            // Crear la etiqueta
-            const etiqueta = document.createElement('label');
-            etiqueta.textContent = 'Producto';
-            
-            // Crear el nuevo elemento de selección
-            const nuevaSeleccion = document.createElement('select');
-            nuevaSeleccion.classList.add('barra', 'selectProducto');
-            const opcionPorDefecto = document.createElement('option');
-            opcionPorDefecto.textContent = 'Seleccione un producto';
-            opcionPorDefecto.value = '';
-            nuevaSeleccion.appendChild(opcionPorDefecto);
-            
-            // Crear el campo de cantidad
-            const campoCantidad = document.createElement('input');
-            campoCantidad.classList.add('barra', 'cantidadProducto');
-            campoCantidad.type = 'number';
-            campoCantidad.placeholder = 'Cantidad';
-            campoCantidad.min = '1';
-            campoCantidad.value = '1';
-            
-            // Crear el campo de precio
-            const campoPrecio = document.createElement('input');
-            campoPrecio.classList.add('barra', 'precioProducto');
-            campoPrecio.type = 'number';
-            campoPrecio.placeholder = 'Precio';
-            campoPrecio.step = '0.01';
-            
-            // Crear el botón de eliminar (con ícono)
-            const botonEliminar = document.createElement('img');
-            botonEliminar.classList.add('eliminar');
-            botonEliminar.src = './assets/icons/icono para eliminar.png'; // Cambia esta URL por la ubicación de tu ícono
-            botonEliminar.alt = 'Eliminar Producto';
-            botonEliminar.onclick = () => eliminarProducto(botonEliminar);
-            
-            // Agregar la etiqueta, selección, campos y botón al nuevo div
-            nuevoProductoDiv.appendChild(etiqueta);
-            nuevoProductoDiv.appendChild(nuevaSeleccion);
-            nuevoProductoDiv.appendChild(campoCantidad);
-            nuevoProductoDiv.appendChild(campoPrecio);
-            nuevoProductoDiv.appendChild(botonEliminar);
-            
-            // Agregar el nuevo div al contenedor
-            contenedorProductos.appendChild(nuevoProductoDiv);
+            // Crear un nuevo div para el producto
+            const nuevoProducto = document.createElement('div');
+            nuevoProducto.className = 'productoSelect';
+
+            // Crear los elementos del producto
+            const labelProducto = document.createElement('label');
+            labelProducto.textContent = 'Producto';
+            const selectProducto = document.createElement('select');
+            selectProducto.className = 'barra selectProducto';
+            selectProducto.innerHTML = '<option value="">Seleccione un producto</option>'; // Puedes agregar más opciones aquí
+            const inputCantidad = document.createElement('input');
+            inputCantidad.className = 'barra cantidadProducto';
+            inputCantidad.type = 'number';
+            inputCantidad.placeholder = 'Cantidad';
+            inputCantidad.min = '1';
+            inputCantidad.value = '1';
+            const imgEliminar = document.createElement('img');
+            imgEliminar.className = 'eliminar';
+            imgEliminar.src = './assets/icons/icono para eliminar.png';
+            imgEliminar.alt = 'Eliminar Producto';
+            imgEliminar.onclick = () => eliminarProducto(imgEliminar);
+
+            // Append elements to the new product div
+            nuevoProducto.appendChild(labelProducto);
+            nuevoProducto.appendChild(selectProducto);
+            nuevoProducto.appendChild(inputCantidad);
+            nuevoProducto.appendChild(imgEliminar);
+
+            // Append the new product div to the container
+            productosContainer.appendChild(nuevoProducto);
         }
-        
-        // Función para eliminar un elemento de selección de producto específico
-        function eliminarProducto(boton) {
-            const contenedorProductos = document.getElementById('contenedorProductos');
-            const elementosSeleccion = contenedorProductos.querySelectorAll('.productoSelect');
-            
-            if (elementosSeleccion.length > 1) {
-                contenedorProductos.removeChild(boton.parentElement);
-            } else {
-                alert('Debe haber al menos un producto.');
-            }
+
+        function eliminarProducto(eliminarBtn) {
+            // Encuentra el contenedor del producto y elimínalo
+            const productoDiv = eliminarBtn.parentElement;
+            productoDiv.remove();
         }
-        
-        // Función para modificar las opciones de todos los elementos de selección
-        function modificarOpciones() {
-            const nuevoNombreProducto = prompt('Ingrese el nombre del producto para agregar a todas las listas:');
-            
-            if (nuevoNombreProducto) {
-                const selectProductos = document.querySelectorAll('.selectProducto');
-                
-                selectProductos.forEach(select => {
-                    const opcion = document.createElement('option');
-                    opcion.value = nuevoNombreProducto.toLowerCase().replace(/\s+/g, '_');
-                    opcion.textContent = nuevoNombreProducto;
-                    select.appendChild(opcion);
-                });
-            }
-        }
-        
-        // Ejemplo de llamada para modificar opciones (puede ser activado por otro botón o acción)
-        document.getElementById('botonModificarOpciones').addEventListener('click', modificarOpciones);
     </script>
+
 </body>
 </html>
