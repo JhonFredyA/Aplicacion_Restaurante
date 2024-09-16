@@ -4,6 +4,7 @@
 
 use BBDD_Restaurante;
 
+DELETE FROM Pedido; 
 -- Script para borrar datos de las tablas en caso de que la tabla ya cuente con registros
 DELETE FROM producto;
 DELETE FROM orden;
@@ -11,16 +12,17 @@ DELETE FROM Mesero;
 DELETE FROM Tipo_Cliente;
 DELETE FROM Tipo_Producto;
 DELETE FROM Categoria_Producto;
-DELETE FROM Pedido; 
+DELETE FROM Mesa;
 
 -- Reinicia el ID autoincrementable en 0 para que no hayan errores con el número de ID
-ALTER TABLE producto AUTO_INCREMENT = 0;
+ALTER TABLE Pedido AUTO_INCREMENT = 0;
 ALTER TABLE orden AUTO_INCREMENT = 0;
+ALTER TABLE producto AUTO_INCREMENT = 0;
 ALTER TABLE Mesero AUTO_INCREMENT = 0;
 ALTER TABLE Tipo_Cliente AUTO_INCREMENT = 0;
 ALTER TABLE Tipo_Producto AUTO_INCREMENT = 0;
 ALTER TABLE Categoria_Producto AUTO_INCREMENT = 0;
-ALTER TABLE Pedido AUTO_INCREMENT = 0;
+ALTER TABLE Mesa AUTO_INCREMENT = 0;
 
 -- Carga masiva de tabla Mesero
 LOAD DATA INFILE 'Carga Masiva/Mesero.csv'
@@ -30,6 +32,16 @@ ENCLOSED BY '"'
 LINES TERMINATED BY '\n'
 IGNORE 1 LINES
 (Mes_Nombre);
+
+-- Carga masiva de tabla Mesa
+LOAD DATA INFILE 'Carga Masiva/Mesa.csv'
+REPLACE INTO TABLE Mesa
+FIELDS TERMINATED BY ';' 
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 LINES
+(Mesa_Nombre);
+
 -- Carga masiva de tabla Tipo_Cliente
 LOAD DATA INFILE 'Carga Masiva/Tipo_Cliente.csv'
 REPLACE INTO TABLE Tipo_Cliente
@@ -69,7 +81,7 @@ FIELDS TERMINATED BY ';'
 ENCLOSED BY '"'
 LINES TERMINATED BY '\n'
 IGNORE 1 LINES
-(Ord_Fecha, Ord_Mesa, Ord_Propina, Mes_ID, TiC_ID);
+(Ord_Fecha, Mesa_ID, Ord_Propina, Mes_ID, TiC_ID);
 -- Carga masiva de tabla Pedido
 LOAD DATA INFILE 'Carga Masiva/Pedido.csv'
 REPLACE INTO TABLE Pedido
