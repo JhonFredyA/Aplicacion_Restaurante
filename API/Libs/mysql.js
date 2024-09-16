@@ -1,5 +1,6 @@
 const mysql = require('mysql')
 
+// clase que gestion operaciones SQL con MySQL
 class MySQL {
 
     constructor() {
@@ -20,6 +21,7 @@ class MySQL {
         })
     }
 
+    // Método que ejecuta consultas o sentencias
     executeQuery(query, params) {
         return new Promise((resolve, reject) => {
             this.pool.query(query, params, (err, results) => {
