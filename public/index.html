@@ -1,97 +1,52 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro de Pedido</title>
+    <title>Registro de Órdenes</title>
+    <!-- importación de iconos -->
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <!-- importación de estilos css -->
     <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
-
-    <div class="contenedor_principal">
-        <!-- CONTENEDOR PARA REGISTRO -->
-        <div id="formulario">
-            <h1>Registro de Pedido</h1>
-            <form action="" method="get">
-                <label for="Mesero">Mesero</label>
-                <select class="barra separar" name="Mesero" id="Mesero"></select>
-
-                <label for="Numero_de_mesa">Número de Mesa</label>
-                <select class="barra separar" name="Numero_de_Mesa" id="Numero_de_mesa" >
-                   <option value="1">Mesa 1</option>
-                   <option value="2">Mesa 2</option>
-                   <option value="3">Mesa 3</option>
-                   <option value="4">Mesa 4</option>
-                   <option value="5">Mesa 5</option>
-                   <option value="6">Mesa 6</option>
-                </select>
-
-                <label>Tipo Cliente</label>
-                <select class="barra separar tipo_cliente_select" name="Tipo_Cliente" id="Tipo_Cliente" ></select>
-
-                <div class="botones">
-                    <input class="barra agregar" type="button" value="Agregar Producto" onclick="agregarProducto()">
-                    <input id="enviarOrden" type="submit" value="Enviar Orden">
+    <main>
+        <form class="container" method="post" action="/order/recordOrder" id="orderForm">
+            <!-- Contenedor del registro de órdenes a la izquierda -->
+            <div class="order-registration">
+                <h2>Registro de Órdenes</h2>
+                <div class="order-item">
+                    <label for="mesero">Mesero</label>
+                    <select id="mesero" name="mesero" required></select>
                 </div>
-            </form>
-        </div>
-
-        <!-- Contenedor para productos -->
-        <div id="productosContainer">
-            <div class="productoSelect">
-                <label>Producto</label>
-                <select class="barra selectProducto">
-                    <option value="">Seleccione un producto</option>
-                </select>
-                <input class="barra cantidadProducto" type="number" placeholder="Cantidad" min="1" value="1">
-                <img class="eliminar" src="./assets/icons/icono para eliminar.png" alt="Eliminar Producto" onclick="eliminarProducto(this)">
+                <div class="order-item">
+                    <label for="tipoCliente">Tipo de Cliente</label>
+                    <select id="tipoCliente" name="tipoCliente" required></select>
+                </div>
+                <div class="order-item">
+                    <label for="mesa">Mesa</label>
+                    <select id="mesa" name="mesa" required></select>
+                </div>
             </div>
-        </div>
-    </div>
-
-    <script>
-        function agregarProducto() {
-            // Obtener el contenedor de productos
-            const productosContainer = document.getElementById('productosContainer');
-            
-            // Crear un nuevo div para el producto
-            const nuevoProducto = document.createElement('div');
-            nuevoProducto.className = 'productoSelect';
-
-            // Crear los elementos del producto
-            const labelProducto = document.createElement('label');
-            labelProducto.textContent = 'Producto';
-            const selectProducto = document.createElement('select');
-            selectProducto.className = 'barra selectProducto';
-            selectProducto.innerHTML = '<option value="">Seleccione un producto</option>'; // Puedes agregar más opciones aquí
-            const inputCantidad = document.createElement('input');
-            inputCantidad.className = 'barra cantidadProducto';
-            inputCantidad.type = 'number';
-            inputCantidad.placeholder = 'Cantidad';
-            inputCantidad.min = '1';
-            inputCantidad.value = '1';
-            const imgEliminar = document.createElement('img');
-            imgEliminar.className = 'eliminar';
-            imgEliminar.src = './assets/icons/icono para eliminar.png';
-            imgEliminar.alt = 'Eliminar Producto';
-            imgEliminar.onclick = () => eliminarProducto(imgEliminar);
-
-            // Append elements to the new product div
-            nuevoProducto.appendChild(labelProducto);
-            nuevoProducto.appendChild(selectProducto);
-            nuevoProducto.appendChild(inputCantidad);
-            nuevoProducto.appendChild(imgEliminar);
-
-            // Append the new product div to the container
-            productosContainer.appendChild(nuevoProducto);
-        }
-
-        function eliminarProducto(eliminarBtn) {
-            // Encuentra el contenedor del producto y elimínalo
-            const productoDiv = eliminarBtn.parentElement;
-            productoDiv.remove();
-        }
-    </script>
-
+            <!-- Contenedor de productos a la derecha -->
+            <div class="producto-container">
+                <div>
+                    <h2>Productos</h2>
+                    <!-- Selector de productos y botón para agregar -->
+                    <div class="add-product">
+                        <label for="producto">Selecciona un producto</label>
+                        <select id="producto"></select>
+                        <button class="add-product-btn">Agregar Producto</button>
+                    </div>
+                    <div class="items"></div>
+                </div>
+                <button class="submit-order-btn" type="submit">Registrar Orden</button>
+            </div>
+            <!-- Campo oculto para los IDs de los productos -->
+            <input type="hidden" id="productos" name="productos">
+        </form>
+    </main>
+    <script src="./js/script.js"></script>
 </body>
 </html>
