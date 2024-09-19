@@ -64,18 +64,28 @@ Producto ON
 Pedido.Prod_ID = Producto.Prod_ID
 WHERE Pedido.Ped_ID =15;
 
+
+
+/* PARA PRESENTAR */
 SELECT 
     Orden.Ord_ID AS id,
     Orden.Ord_Fecha AS Fecha,
-    Orden.Ord_Mesa AS mesa,
+    mesa.Mesa_Nombre AS mesa,
     Orden.Ord_Propina AS propina,
     Mesero.Mes_Nombre AS mesero,
-    Tipo_Cliente.TiC_Tipo AS tipo_de_cliente
+    Tipo_Cliente.TiC_Tipo AS tipo_de_cliente,
+    producto.Prod_Nombre AS producto
 FROM 
     Orden
-INNER JOIN 
-    Mesero ON Orden.Mes_ID = Mesero.Mes_ID
-INNER JOIN 
-    Tipo_Cliente ON Orden.TiC_ID = Tipo_Cliente.TiC_ID
-GROUP BY Orden.Ord_ID;
+INNER JOIN Mesero ON Orden.Mes_ID = Mesero.Mes_ID
+INNER JOIN pedido on orden.Ord_ID= pedido.Ord_ID
+INNER join producto on pedido.Prod_ID = producto.Prod_ID
+INNER JOIN Tipo_Cliente ON Orden.TiC_ID = Tipo_Cliente.TiC_ID 
+INNER JOIN mesa on orden.Mesa_ID= Mesa.Mesa_ID
+WHERE Orden.Ord_ID= 1
 
+
+SELECT * from orden where ord_id = 1
+
+SELECT 
+    Orden.Ord_Id

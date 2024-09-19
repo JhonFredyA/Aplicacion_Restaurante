@@ -18,6 +18,7 @@ router.post('/recordOrder', async (req, res) => {
         const resultadoOrden = await mySQL.executeQuery('INSERT INTO Orden(Ord_Fecha,Ord_Propina,Mesa_ID,Mes_ID,TiC_ID) VALUES (?,?,?,?,?)',[fecha, propina, mesa, mesero, tipoCliente])
         // Obtiene el ID de la orden recién creada
         const ordenID = resultadoOrden.insertId
+        
         // Crea un Array que contiene los pares de valores para cada producto
         const valoresPedido = productosArray.map(productoId => [ordenID, productoId])
         // Ejecuta la sentencia SQL para insetar los datos del pedido
@@ -25,7 +26,7 @@ router.post('/recordOrder', async (req, res) => {
         
         // Verifica si los datos de ambas consultas se insertaron correctamente
         if (resultadoOrden.affectedRows > 0 && resultadoPedido.affectedRows > 0) {
-            res.status(200).json({ mensaje: 'Registro de orden exitoso' })
+            res.status(200).json({ mensaje: `Registro de orden exitoso ${ordenID}` })
         } else {
             res.status(500).json({ mensaje: 'Error al registrar la orden o pedido' })
         }
